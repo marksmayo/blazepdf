@@ -1,0 +1,1979 @@
+{
+  "generated_at": "2026-10-02T07:26:51.837894+00:00",
+  "raw_file": "benchmark-20261002T072651Z.json",
+  "repeats": 9,
+  "warmups_excluded": 1,
+  "machine": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "os": "Windows 11 (10.0.26300)",
+    "cpu_model": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "cpu_count": 20,
+    "cpu_mhz": null,
+    "cpu_load_percent": null,
+    "memory_gb": 0.0,
+    "gpu": "unknown",
+    "python": "3.13.2",
+    "build_profile": "release"
+  },
+  "execution": {
+    "randomization_seed": 20260925,
+    "sample_policy": "one warm-up excluded; one additional sample is retained when a measured sample exceeds 1.5\u00d7 the median",
+    "launch_validation": "signal adapters require a stable visible top-level window when configured"
+  },
+  "readers": [
+    {
+      "name": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "repository": "local",
+      "revision": "external binary",
+      "adapter": "blazepdf",
+      "work": "open document + first-page text layer"
+    },
+    {
+      "name": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "repository": "local",
+      "revision": "external binary",
+      "adapter": "blazepdf",
+      "work": "classify only"
+    },
+    {
+      "name": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "repository": "local",
+      "revision": "external binary",
+      "adapter": "blazepdf-render",
+      "work": "render first page at 150 DPI"
+    },
+    {
+      "name": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "repository": "local",
+      "revision": "external binary",
+      "adapter": "blazepdf",
+      "work": "classify + extract markdown"
+    },
+    {
+      "name": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "repository": "local",
+      "revision": "external binary",
+      "adapter": "window-ready-signal",
+      "work": "launch to visible document window"
+    }
+  ],
+  "catalog": [
+    {
+      "name": "MuPDF",
+      "kind": "engine / viewer",
+      "platforms": "Windows, macOS, Linux, mobile",
+      "features": "PDF/XPS/EPUB viewing; precise rendering; text and structured JSON extraction; CLI and embeddable C core",
+      "claim": "Fast, lightweight; core can be configured as small as 2 MB",
+      "source": "https://mupdf.com/core",
+      "tests": [
+        "first-page latency",
+        "fixed-DPI render throughput",
+        "text extraction",
+        "working set"
+      ]
+    },
+    {
+      "name": "PDFgear",
+      "kind": "reader / editor",
+      "platforms": "Windows, macOS, iOS",
+      "features": "Reading, editing, annotation, OCR, conversion, GPT-powered assistant",
+      "claim": "AI assistant says it can summarize dozens of pages in seconds; this is cloud/AI task time, not local parse speed",
+      "source": "https://www.pdfgear.com/pdf-reader/",
+      "tests": [
+        "open and first page",
+        "OCR latency and accuracy",
+        "large-document summary latency (separate AI metric)"
+      ]
+    },
+    {
+      "name": "Slim PDF Reader",
+      "kind": "reader",
+      "platforms": "Windows, Linux (macOS listed as coming soon)",
+      "features": "Search, rotate, forms, annotations, signature verification, tabs",
+      "claim": "Vendor currently describes download as 15 MB and resource-saving; older 1.43 MB claim is obsolete",
+      "source": "https://cdn.investintech.com/resources/freetools/slimpdfreader/",
+      "tests": [
+        "cold launch",
+        "working set",
+        "signed PDF verification",
+        "rotation"
+      ]
+    },
+    {
+      "name": "Okular",
+      "kind": "reader",
+      "platforms": "Linux, Windows (Microsoft Store), macOS",
+      "features": "Multi-format reader, annotations, text selection, PDF signatures and validation",
+      "claim": "Blue Angel eco-label; publishes idle and standard-use energy measurements",
+      "source": "https://okular.kde.org/eco/",
+      "tests": [
+        "working set",
+        "idle and active energy",
+        "signed PDF validation",
+        "open / first page"
+      ]
+    },
+    {
+      "name": "PDF24 Reader",
+      "kind": "reader",
+      "platforms": "Windows",
+      "features": "Offline reader, thumbnails, bookmarks, text extraction, rendering; distributed with PDF24 Creator",
+      "claim": "Release notes report rendering often twice as fast after an engine change, faster first page regardless of page count, and lower memory for a large-bookmark test file",
+      "source": "https://creator.pdf24.org/changelog/en.html",
+      "tests": [
+        "large page-count first-page latency",
+        "large bookmark-tree open/memory",
+        "fixed-DPI render and zoom latency",
+        "startup time"
+      ]
+    },
+    {
+      "name": "Nitro PDF Pro",
+      "kind": "reader / editor (current paid product)",
+      "platforms": "Windows, macOS, iOS",
+      "features": "Reading, OCR, editing, signatures, conversion; recent releases mention large/complex PDFs",
+      "claim": "Release notes cite faster display, improved rendering memory efficiency, and faster opening/scrolling of large PDFs",
+      "source": "https://www.gonitro.com/documentation/release-notes",
+      "tests": [
+        "large/image-heavy first page",
+        "scroll/page navigation",
+        "render latency",
+        "working set"
+      ]
+    },
+    {
+      "name": "Xodo PDF Reader",
+      "kind": "reader",
+      "platforms": "Windows, macOS, Linux",
+      "features": "View, search, annotate, forms, digital signatures, layers, storage integrations",
+      "claim": "No quantitative speed claim found",
+      "source": "https://xodo.com/pdf-studio/free-pdf-reader",
+      "tests": [
+        "first page",
+        "signed PDF display",
+        "search",
+        "memory"
+      ]
+    },
+    {
+      "name": "sioyek",
+      "kind": "reader",
+      "platforms": "Windows, macOS, Linux",
+      "features": "Research-oriented navigation, generated/searchable TOC, smart jumps, portals, bookmarks, SyncTeX",
+      "claim": "No quantitative rendering-speed claim found",
+      "source": "https://github.com/ahrm/sioyek",
+      "tests": [
+        "cold launch",
+        "TOC construction",
+        "search/navigation latency",
+        "multi-column navigation"
+      ]
+    },
+    {
+      "name": "Sejda PDF Desktop",
+      "kind": "reader / editor",
+      "platforms": "Windows, macOS, Linux",
+      "features": "Local/offline PDF editing, conversion, forms, annotation, OCR (daily limits in free tier)",
+      "claim": "No quantitative speed claim found",
+      "source": "https://www.sejda.com/desktop",
+      "tests": [
+        "cold launch",
+        "first page",
+        "OCR latency and accuracy",
+        "working set"
+      ]
+    },
+    {
+      "name": "Adobe Acrobat Reader",
+      "kind": "reader",
+      "platforms": "Windows, macOS, mobile",
+      "features": "Reading, accessibility/reflow, forms, signatures, browser Fast Web View",
+      "claim": "Fast Web View is page-at-a-time network loading for linearized PDFs, not a local-file speed claim",
+      "source": "https://helpx.adobe.com/acrobat/using/opening-pdfs.html",
+      "tests": [
+        "linearized HTTP first-page latency",
+        "large-document visible-page accessibility processing",
+        "local cold/warm open"
+      ]
+    },
+    {
+      "name": "Microsoft Edge PDF reader",
+      "kind": "browser-integrated reader",
+      "platforms": "Windows, macOS",
+      "features": "View/search, annotate, fill forms, read aloud, table of contents, protected documents",
+      "claim": "Microsoft/Adobe integration is described as improving rendering fidelity, performance, text selection and accessibility; measure under actual installed channel/version",
+      "source": "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-pdf",
+      "tests": [
+        "browser cold/warm open",
+        "large-document scroll smoothness",
+        "search latency",
+        "memory per PDF tab"
+      ]
+    },
+    {
+      "name": "Google Chrome PDF viewer",
+      "kind": "browser-integrated reader",
+      "platforms": "Windows, macOS, Linux, ChromeOS",
+      "features": "View, search, annotate, fill/sign; on-device OCR for scanned PDFs",
+      "claim": "No numeric performance claim found",
+      "source": "https://support.google.com/chrome/answer/16215622",
+      "tests": [
+        "scanned PDF OCR latency and accuracy",
+        "browser cold/warm open",
+        "search latency",
+        "memory per PDF tab"
+      ]
+    },
+    {
+      "name": "WPS Office PDF",
+      "kind": "office-suite reader / editor",
+      "platforms": "Windows, macOS, Linux, mobile",
+      "features": "Reading, search, annotation, OCR, extract/convert, signatures, AI assistant",
+      "claim": "Vendor claims fast search and handling 10\u20131,000+ pages without lag; treat as unverified",
+      "source": "https://www.wps.com/feature/free-pdf-open-app/",
+      "tests": [
+        "page-count scaling",
+        "search latency",
+        "OCR and extraction",
+        "working set"
+      ]
+    },
+    {
+      "name": "UPDF",
+      "kind": "reader / editor",
+      "platforms": "Windows, macOS, iOS, Android",
+      "features": "Reading, annotation, editing, page management and AI tools; OCR status needs version-level confirmation",
+      "claim": "No quantitative speed claim found",
+      "source": "https://updf.com/updf-features/",
+      "tests": [
+        "first page",
+        "search/extraction",
+        "large document memory"
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Overlapping text",
+      "document_id": "duplicate",
+      "tags": [
+        "text",
+        "regression"
+      ],
+      "bytes": 1181573,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\Document-PublisherError-1.pdf"
+      ],
+      "samples_ms": [
+        20.943,
+        20.543,
+        18.341,
+        17.521,
+        19.919,
+        22.159,
+        19.844,
+        19.839,
+        17.671
+      ],
+      "output": "page: 1\nrotated: false\n\n\n",
+      "launch_state": null,
+      "min_ms": 17.521,
+      "max_ms": 22.159,
+      "mean_ms": 19.642,
+      "median_ms": 19.844,
+      "p10_ms": 17.521,
+      "p90_ms": 22.159,
+      "p95_ms": 22.159,
+      "stdev_ms": 1.544,
+      "cv_percent": 7.86
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Image document",
+      "document_id": "image",
+      "tags": [
+        "image",
+        "baseline"
+      ],
+      "bytes": 2787627,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\fseprd1102849.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-fseprd1102849.ppm"
+      ],
+      "samples_ms": [
+        635.204,
+        629.243,
+        697.63,
+        689.119,
+        630.786,
+        633.129,
+        634.231,
+        676.736,
+        629.132
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 629.132,
+      "max_ms": 697.63,
+      "mean_ms": 650.579,
+      "median_ms": 634.231,
+      "p10_ms": 629.132,
+      "p90_ms": 697.63,
+      "p95_ms": 697.63,
+      "stdev_ms": 28.501,
+      "cv_percent": 4.38
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Financial table",
+      "document_id": "table",
+      "tags": [
+        "table",
+        "chart"
+      ],
+      "bytes": 59795,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\forecast_table_chart.pdf"
+      ],
+      "samples_ms": [
+        12.862,
+        12.341,
+        12.083,
+        12.381,
+        11.894,
+        12.069,
+        13.627,
+        14.697,
+        15.779
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: false\nprocessed: 0 ms\n",
+      "launch_state": null,
+      "min_ms": 11.894,
+      "max_ms": 15.779,
+      "mean_ms": 13.081,
+      "median_ms": 12.381,
+      "p10_ms": 11.894,
+      "p90_ms": 15.779,
+      "p95_ms": 15.779,
+      "stdev_ms": 1.356,
+      "cv_percent": 10.36
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "RTL Hebrew",
+      "document_id": "rtl",
+      "tags": [
+        "rtl",
+        "text"
+      ],
+      "bytes": 11611,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\rtl_hebrew_visual_words.pdf"
+      ],
+      "samples_ms": [
+        15.669,
+        15.444,
+        14.543,
+        14.853,
+        14.066,
+        14.907,
+        13.951,
+        11.307,
+        12.217
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: false\nprocessed: 0 ms\n",
+      "launch_state": null,
+      "min_ms": 11.307,
+      "max_ms": 15.669,
+      "mean_ms": 14.106,
+      "median_ms": 14.543,
+      "p10_ms": 11.307,
+      "p90_ms": 15.669,
+      "p95_ms": 15.669,
+      "stdev_ms": 1.46,
+      "cv_percent": 10.35
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Multi-column",
+      "document_id": "columns",
+      "tags": [
+        "columns",
+        "text"
+      ],
+      "bytes": 41942,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\government_positions_women.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-government_positions_women.ppm"
+      ],
+      "samples_ms": [
+        32.453,
+        38.717,
+        34.85,
+        33.056,
+        32.257,
+        30.299,
+        30.6,
+        30.313,
+        31.363
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 30.299,
+      "max_ms": 38.717,
+      "mean_ms": 32.656,
+      "median_ms": 32.257,
+      "p10_ms": 30.299,
+      "p90_ms": 38.717,
+      "p95_ms": 38.717,
+      "stdev_ms": 2.712,
+      "cv_percent": 8.31
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Image document",
+      "document_id": "image",
+      "tags": [
+        "image",
+        "baseline"
+      ],
+      "bytes": 2787627,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\fseprd1102849.pdf"
+      ],
+      "samples_ms": [
+        185.693,
+        191.535,
+        190.524,
+        188.525,
+        193.756,
+        193.534,
+        189.796,
+        190.402,
+        190.399
+      ],
+      "output": "eographic feature namesand May 31st, theSee reverse side of map for!!!830292827!!!4362552!302928Hazelton Pyramid27)2530!29!!!1!!!!!!4!!!26!!28272625302928272625!!prohibited bases apply to all programs.)declared derogatory through U.S. Department of the!!!!!!!!!!!!!!!!!!!!!!!!!!!Hazelton Peak!!!!!!313233!!!3435436857!31512!)Persons with disabilities who requireInterior Secretarial Orders 3404 & 3405. Upon the nextdispersed camping'Seasonal and Special Vehicle!!!!!36!31!32!33!!!32333454!!!9\"!LEIGH CREEK!!!!343536!!5113536313233printing of this publication the USDA Forest Service willJ!5!343536!!!alternative means for communication of!!504!!!!!50!!313233343536!!!!use official replacement names. For a list of declaredprohibitions along!!!!!!program information (Braille, large print,6543934DOYLE!!5Designations' and 'Dispersed2!1!56121365!15!!derogatory names and official replacement names,!43\"!!!!16!9!!5!!4audiotape, etc.) should contact USDA'svisit: www.usgs.gov/us-board-on-geographic-names!!!!!!!2!5321!5!141!!!!TARGET Center at (202) 720-2600 (voiceUS Hwy 14 and 14A,0!1!!!!49!507!!!148!!!!47Camping' tables.78!436!10!11!!89506!!!!!!169!!!!!!!!91278!!!!!!!!10and TDD). To file a compliant of\u00a3\u00a4!!!49!!!!!!!!!!10!!12!!789!!1411112!11!!!!!!!discrimination, write to USDA, Director,FSR 13, FSR 16,583111!!!!50534!143!!Office of Civil Rights, 1400 Independence1817162151413!!5331817161514131817!Avenue, S.W., Washington, D.C. 20250-FSR 26, FSR 125,!!16151413!Ten Sleep!9410, or call (800) 795-3272 (voice) or (202)19!2021222324720-6382 (TDD). USDA is an equaland FSR 137 are lifted.\"192021223232419202122J2324opportunity provider and employer.44\u00b00'0\"N302928272625302928272625302927282625313233343536313132333435363233343536108\u00b0R0'09\"W3 WR 92 W107\u00b052'30\"WR 91 W107\u00b045'0\"WR 90 W107\u00b037'30\"WR 89 W107\u00b030'0\"WR 88 W107\u00b022'30\"WR 87 W107\u00b015'0\"WR 86 W107\u00b07'30\"WR 85 W107\u00b00'0\"WR 84 W106\u00b052'30\"WR 83 W106\u00b045'0\"WR 82 WNorth American Datum of 1983 (NAD 83)FS-873-202Universal Transverse Mercator, zone 13\n",
+      "launch_state": null,
+      "min_ms": 185.693,
+      "max_ms": 193.756,
+      "mean_ms": 190.463,
+      "median_ms": 190.402,
+      "p10_ms": 185.693,
+      "p90_ms": 193.756,
+      "p95_ms": 193.756,
+      "stdev_ms": 2.459,
+      "cv_percent": 1.29
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Text-heavy",
+      "document_id": "text",
+      "tags": [
+        "text",
+        "baseline"
+      ],
+      "bytes": 21157,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\2559 words.pdf"
+      ],
+      "samples_ms": [
+        31.624,
+        34.106,
+        31.393,
+        30.702,
+        29.971,
+        29.543,
+        31.772,
+        31.673,
+        30.23
+      ],
+      "output": "les ut eu sem integer vitae justo eget magna. Nibh sed pulvinar proin gravida hendrerit lectus. Sed blandit libero volutpat sed. Consequat id porta nibh venenatis. Neque viverra justo nec ultrices dui. Sodales neque sodales ut etiam sit amet nisl. Ut ornare lectus sit amet est placerat in. Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam.\n\nDignissim convallis aenean et tortor at risus. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Dui sapien eget mi proin sed libero. Risus viverra adipiscing at in. Non tellus orci ac auctor augue mauris. Interdum varius sit amet mattis vulputate enim nulla aliquet. Cursus sit amet dictum sit amet justo donec enim. Proin nibh nisl condimentum id. Orci dapibus ultrices in iaculis nunc. Pellentesque pulvinar pellentesque habitant morbi tristique senectus. Ac odio tempor orci dapibus.\n\nMauris sit amet massa vitae tortor condimentum lacinia. Quis commodo odio aenean sed adipiscing diam. Euismod nisi porta lorem mollis aliquam ut porttitor. Platea dictumst quisque sagittis purus sit amet volutpat consequat. Cursus vitae congue mauris rhoncus aenean vel elit. Vulputate mi sit amet mauris commodo quis imperdiet massa tincidunt. Amet cursus sit amet dictum sit amet. Integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Eget est lorem ipsum dolor sit. Fringilla est ullamcorper eget nulla facilisi etiam dignissim. A arcu cursus vitae congue mauris rhoncus aenean. Fames ac turpis egestas sed tempus urna et pharetra. Donec pretium vulputate sapien nec sagittis aliquam malesuada.\n\nTurpis tincidunt id aliquet risus feugiat. Quam lacus suspendisse faucibus interdum posuere. Justo donec enim diam vulputate. Mollis aliquam ut porttitor leo a diam sollicitudin. Quis ipsum suspendisse ultrices gravida dictum. Ut diam quam nulla porttitor massa id neque. Id eu nisl nunc mi ipsum faucibus vitae. Diam quis enim lobortis scelerisque fermentum dui faucibus. Enim sit amet venenatis urna.\n\n",
+      "launch_state": null,
+      "min_ms": 29.543,
+      "max_ms": 34.106,
+      "mean_ms": 31.224,
+      "median_ms": 31.393,
+      "p10_ms": 29.543,
+      "p90_ms": 34.106,
+      "p95_ms": 34.106,
+      "stdev_ms": 1.353,
+      "cv_percent": 4.33
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Signed PDF",
+      "document_id": "signed",
+      "tags": [
+        "signed",
+        "security"
+      ],
+      "bytes": 189320,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-5581-data\\test_sign_PAdES_B-LTA.pdf"
+      ],
+      "samples_ms": [
+        19.738,
+        19.854,
+        19.219,
+        20.277,
+        19.926,
+        21.805,
+        21.912,
+        20.033,
+        20.093
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.219,
+      "max_ms": 21.912,
+      "mean_ms": 20.317,
+      "median_ms": 20.033,
+      "p10_ms": 19.219,
+      "p90_ms": 21.912,
+      "p95_ms": 21.912,
+      "stdev_ms": 0.922,
+      "cv_percent": 4.54
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "RTL Hebrew",
+      "document_id": "rtl",
+      "tags": [
+        "rtl",
+        "text"
+      ],
+      "bytes": 11611,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\rtl_hebrew_visual_words.pdf"
+      ],
+      "samples_ms": [
+        17.952,
+        18.236,
+        16.577,
+        15.836,
+        16.614,
+        16.448,
+        16.31,
+        16.361,
+        16.911
+      ],
+      "output": "pages: 1\nkind: Text\nprocessed: 2 ms\n\n# \u05d3\u05d5\u05d7 \u05e9\u05e0\u05ea\u05d9 2024\n\n\u05de\u05e1\u05e4\u05e8 \u05d4\u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05d2\u05d3\u05dc \u05d1-12% \u05dc\u05e2\u05d5\u05de\u05ea \u05d4\u05e9\u05e0\u05d4 \u05d4\u05e7\u05d5\u05d3\u05de\u05ea. \u05d4\u05ea\u05e7\u05df (IFRS 16) \u05d0\u05d5\u05de\u05e5 \u05d1\u05e9\u05e0\u05ea 2019. \u05d4\u05d5\u05d5\u05e2\u05d3\u05d4 \u05d1\u05d7\u05e0\u05d4 \u05d0\u05ea \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d1\u05de\u05d4\u05dc\u05da \u05d4\u05e8\u05d1\u05e2\u05d5\u05df \u05d4\u05e9\u05dc\u05d9\u05e9\u05d9. \u05d4\u05de\u05de\u05e6\u05d0\u05d9\u05dd \u05d4\u05d5\u05e6\u05d2\u05d5 \u05dc\u05d4\u05e0\u05d4\u05dc\u05d4, \u05d5\u05dc\u05d0\u05d7\u05e8 \u05d3\u05d9\u05d5\u05df \u05d0\u05d5\u05e9\u05e8\u05d5 \u05d4\u05d4\u05de\u05dc\u05e6\u05d5\u05ea. \u05d4\u05d9\u05d9\u05e9\u05d5\u05dd \u05d9\u05d7\u05dc \u05d1\u05ea\u05d7\u05d9\u05dc\u05ea \u05d4\u05e9\u05e0\u05d4 \u05d4\u05d1\u05d0\u05d4.\n\n",
+      "launch_state": null,
+      "min_ms": 15.836,
+      "max_ms": 18.236,
+      "mean_ms": 16.805,
+      "median_ms": 16.577,
+      "p10_ms": 15.836,
+      "p90_ms": 18.236,
+      "p95_ms": 18.236,
+      "stdev_ms": 0.788,
+      "cv_percent": 4.69
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Image document",
+      "document_id": "image",
+      "tags": [
+        "image",
+        "baseline"
+      ],
+      "bytes": 2787627,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\fseprd1102849.pdf"
+      ],
+      "samples_ms": [
+        21.325,
+        20.71,
+        22.177,
+        19.807,
+        22.412,
+        20.455,
+        19.831,
+        20.075,
+        19.376
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.376,
+      "max_ms": 22.412,
+      "mean_ms": 20.685,
+      "median_ms": 20.455,
+      "p10_ms": 19.376,
+      "p90_ms": 22.412,
+      "p95_ms": 22.412,
+      "stdev_ms": 1.076,
+      "cv_percent": 5.2
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Overlapping text",
+      "document_id": "duplicate",
+      "tags": [
+        "text",
+        "regression"
+      ],
+      "bytes": 1181573,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\Document-PublisherError-1.pdf"
+      ],
+      "samples_ms": [
+        22.47,
+        21.827,
+        18.997,
+        20.852,
+        19.248,
+        19.701,
+        20.287,
+        20.219,
+        20.466
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 18.997,
+      "max_ms": 22.47,
+      "mean_ms": 20.452,
+      "median_ms": 20.287,
+      "p10_ms": 18.997,
+      "p90_ms": 22.47,
+      "p95_ms": 22.47,
+      "stdev_ms": 1.137,
+      "cv_percent": 5.56
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Overlapping text",
+      "document_id": "duplicate",
+      "tags": [
+        "text",
+        "regression"
+      ],
+      "bytes": 1181573,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\Document-PublisherError-1.pdf"
+      ],
+      "samples_ms": [
+        18.367,
+        17.935,
+        18.576,
+        19.498,
+        18.051,
+        17.832,
+        18.173,
+        19.399,
+        22.137
+      ],
+      "output": "pages: 1\nkind: Image\nprocessed: 4 ms\n\n\n",
+      "launch_state": null,
+      "min_ms": 17.832,
+      "max_ms": 22.137,
+      "mean_ms": 18.885,
+      "median_ms": 18.367,
+      "p10_ms": 17.832,
+      "p90_ms": 22.137,
+      "p95_ms": 22.137,
+      "stdev_ms": 1.36,
+      "cv_percent": 7.2
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Multi-column",
+      "document_id": "columns",
+      "tags": [
+        "columns",
+        "text"
+      ],
+      "bytes": 41942,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\government_positions_women.pdf"
+      ],
+      "samples_ms": [
+        14.177,
+        15.176,
+        13.893,
+        14.027,
+        14.591,
+        14.033,
+        12.441,
+        12.914,
+        14.484
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: false\nprocessed: 1 ms\n",
+      "launch_state": null,
+      "min_ms": 12.441,
+      "max_ms": 15.176,
+      "mean_ms": 13.971,
+      "median_ms": 14.033,
+      "p10_ms": 12.441,
+      "p90_ms": 15.176,
+      "p95_ms": 15.176,
+      "stdev_ms": 0.838,
+      "cv_percent": 6.0
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Multi-column",
+      "document_id": "columns",
+      "tags": [
+        "columns",
+        "text"
+      ],
+      "bytes": 41942,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\government_positions_women.pdf"
+      ],
+      "samples_ms": [
+        16.149,
+        15.022,
+        15.182,
+        15.405,
+        15.684,
+        16.718,
+        17.075,
+        16.415,
+        17.643
+      ],
+      "output": "page: 1\nrotated: false\n\n12Encinas Franco and LagunaTable 1: Percentage of Government Positions Held by Women During the Presidencies of Corazon Aquino and Fidel RamosGovernment No. of SeatsAquino Ramos Position Administration Administration (1986\u20131992)(1992\u20131998)Senate 248.316.7House of 2029.410.4RepresentativesCabinet2015.05.0Governor735.45.4Provincial Board 6269.910.9MemberCity/Municipal 1,5787.411.2MayorCity/Municipal Vice 1,5786.514.9MayorCity Municipal 12,40610.5N/ACouncilorSource: Tancangco 1991 as cited in Valte (1992). Current Situation: 2001-2019Filipino women are still very much a minority in the formal political sphere. It can also be observed that in executive positions such as the cabinet, few women are appointed, especially during President Fidel Ramos\u2019s time, compared to Cory Aquino\u2019s administration (Table 1). As mentioned above, the Philippines has made significant strides in legislating for women\u2019s rights. However, 35 years after re-democratization and 84 years after the grant of suffrage, participation of women in politics is still a work in progress, as in most countries. In 2019, the overall percentage of women in all elective posts in the country was only about 20 percent (PCW 2021), barely reaching the 30 percent international requirement for women\u2019s political \n",
+      "launch_state": null,
+      "min_ms": 15.022,
+      "max_ms": 17.643,
+      "mean_ms": 16.144,
+      "median_ms": 16.149,
+      "p10_ms": 15.022,
+      "p90_ms": 17.643,
+      "p95_ms": 17.643,
+      "stdev_ms": 0.899,
+      "cv_percent": 5.57
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Multi-column",
+      "document_id": "columns",
+      "tags": [
+        "columns",
+        "text"
+      ],
+      "bytes": 41942,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\government_positions_women.pdf"
+      ],
+      "samples_ms": [
+        26.814,
+        23.774,
+        25.488,
+        25.187,
+        26.198,
+        33.695,
+        27.563,
+        26.242,
+        26.524
+      ],
+      "output": "pages: 1\nkind: Text\nprocessed: 9 ms\n\n## 12 Encinas Franco and Laguna\n\n**Table 1: Percentage of Government Positions Held by Women During the**\n\n## Presidencies of Corazon Aquino and Fidel Ramos\n\n|Government Position|No. of Seats|Aquino Administration (1986\u20131992)|Ramos Administration (1992\u20131998)|\n|---|---|---|---|\n|Senate|24|8.3|16.7|\n|House of Representatives|202|9.4|10.4|\n|Cabinet|20|15.0|5.0|\n|Governor|73|5.4|5.4|\n|Provincial Board Member|626|9.9|10.9|\n|City/Municipal Mayor|1,578|7.4|11.2|\n|City/Municipal Vice Mayor|1,578|6.5|14.9|\n|City Municipal Councilor|12,406|10.5|N/A|\n\nSource: Tancangco 1991 as cited in Valte (1992).\n\n# Current Situation: 2001-2019\n\nFilipino women are still very much a minority in the formal political sphere. It can also be observed that in executive positions such as the cabinet, few women are appointed, especially during President Fidel Ramos\u2019s time, compared to Cory Aquino\u2019s administration (Table 1). As mentioned above, the Philippines has made significant strides in legislating for women\u2019s rights. However, 35 years after re- democratization and 84 years after the grant of suffrage, participation of women in politics is still a work in progress, as in most countries.\n\nIn 2019, the overall percentage of women in all elective posts in the country was only about 20 percent (PCW 2021), barely reaching the 30 percent international requirement for women\u2019s political\n\n",
+      "launch_state": null,
+      "min_ms": 23.774,
+      "max_ms": 33.695,
+      "mean_ms": 26.832,
+      "median_ms": 26.242,
+      "p10_ms": 23.774,
+      "p90_ms": 33.695,
+      "p95_ms": 33.695,
+      "stdev_ms": 2.792,
+      "cv_percent": 10.4
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Rotation",
+      "document_id": "rotated",
+      "tags": [
+        "rotation",
+        "regression"
+      ],
+      "bytes": 3743,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-4839-data\\rotated.pdf"
+      ],
+      "samples_ms": [
+        14.646,
+        11.885,
+        12.8,
+        11.975,
+        12.89,
+        12.579,
+        13.388,
+        13.533,
+        13.8
+      ],
+      "output": "page: 1\nrotated: true\n\nTitle = Hello, World!Example glyphs for selectionspanning 2 lines in graphics statePage 1\n",
+      "launch_state": null,
+      "min_ms": 11.885,
+      "max_ms": 14.646,
+      "mean_ms": 13.055,
+      "median_ms": 12.89,
+      "p10_ms": 11.885,
+      "p90_ms": 14.646,
+      "p95_ms": 14.646,
+      "stdev_ms": 0.886,
+      "cv_percent": 6.79
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Financial table",
+      "document_id": "table",
+      "tags": [
+        "table",
+        "chart"
+      ],
+      "bytes": 59795,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\forecast_table_chart.pdf"
+      ],
+      "samples_ms": [
+        15.906,
+        15.556,
+        16.066,
+        17.117,
+        14.77,
+        17.592,
+        19.522,
+        14.294,
+        18.032
+      ],
+      "output": "page: 1\nrotated: false\n\nA B C D E 1 time observed Forecast(observed) LBounower Cd(obseronfidenved) ce Upper CBound(obseronfidenved) ce 2 0 13 3 1 12 4 2 13.5 5 3 15 6 4 16 7 5 18 8 6 17.5 9 7 17.9 17.90 17.90 17.90 10 8 19.73214458 17.99 21.47 11 9 21.59962998 19.81 23.39 12 10 21.62645857 19.78 23.47 13 11 22.85993116 20.96 24.76 14 12 24.72741656 22.78 26.68 15 13 24.75424515 22.75 26.75 Figure 13.3. Graph of Projection Estimates Open Template in Microsoft Excel [Image: I7]Having obtained price forecasts, our next step would be to re-estimate CR for GCS based on the forecasted prices. In addition, we may use the confidence interval forecasts to find a most optimistic forecast using the upper confidence interval forecasts and a pessimistic forecast using the lower bound forecasts. 298|Ch. 13. Homogeneous Investment Types\n",
+      "launch_state": null,
+      "min_ms": 14.294,
+      "max_ms": 19.522,
+      "mean_ms": 16.539,
+      "median_ms": 16.066,
+      "p10_ms": 14.294,
+      "p90_ms": 19.522,
+      "p95_ms": 19.522,
+      "stdev_ms": 1.671,
+      "cv_percent": 10.1
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "RTL Hebrew",
+      "document_id": "rtl",
+      "tags": [
+        "rtl",
+        "text"
+      ],
+      "bytes": 11611,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\rtl_hebrew_visual_words.pdf"
+      ],
+      "samples_ms": [
+        19.271,
+        21.814,
+        21.464,
+        20.334,
+        21.036,
+        21.989,
+        23.165,
+        23.055,
+        21.606
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.271,
+      "max_ms": 23.165,
+      "mean_ms": 21.526,
+      "median_ms": 21.606,
+      "p10_ms": 19.271,
+      "p90_ms": 23.165,
+      "p95_ms": 23.165,
+      "stdev_ms": 1.229,
+      "cv_percent": 5.71
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Overlapping text",
+      "document_id": "duplicate",
+      "tags": [
+        "text",
+        "regression"
+      ],
+      "bytes": 1181573,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\Document-PublisherError-1.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-Document-PublisherError-1.ppm"
+      ],
+      "samples_ms": [
+        126.058,
+        131.726,
+        127.117,
+        123.531,
+        126.2,
+        127.337,
+        122.163,
+        124.891,
+        132.549
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 122.163,
+      "max_ms": 132.549,
+      "mean_ms": 126.841,
+      "median_ms": 126.2,
+      "p10_ms": 122.163,
+      "p90_ms": 132.549,
+      "p95_ms": 132.549,
+      "stdev_ms": 3.436,
+      "cv_percent": 2.71
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Rotation",
+      "document_id": "rotated",
+      "tags": [
+        "rotation",
+        "regression"
+      ],
+      "bytes": 3743,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-4839-data\\rotated.pdf"
+      ],
+      "samples_ms": [
+        13.439,
+        12.038,
+        13.225,
+        14.195,
+        12.868,
+        12.49,
+        13.05,
+        12.924,
+        15.725
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: false\nprocessed: 0 ms\n",
+      "launch_state": null,
+      "min_ms": 12.038,
+      "max_ms": 15.725,
+      "mean_ms": 13.328,
+      "median_ms": 13.05,
+      "p10_ms": 12.038,
+      "p90_ms": 15.725,
+      "p95_ms": 15.725,
+      "stdev_ms": 1.08,
+      "cv_percent": 8.11
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Signed PDF",
+      "document_id": "signed",
+      "tags": [
+        "signed",
+        "security"
+      ],
+      "bytes": 189320,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-5581-data\\test_sign_PAdES_B-LTA.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-test_sign_PAdES_B-LTA.ppm"
+      ],
+      "samples_ms": [
+        35.625,
+        33.593,
+        35.599,
+        34.013,
+        36.373,
+        37.44,
+        32.819,
+        34.623,
+        35.938
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 32.819,
+      "max_ms": 37.44,
+      "mean_ms": 35.114,
+      "median_ms": 35.599,
+      "p10_ms": 32.819,
+      "p90_ms": 37.44,
+      "p95_ms": 37.44,
+      "stdev_ms": 1.466,
+      "cv_percent": 4.18
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Rotation",
+      "document_id": "rotated",
+      "tags": [
+        "rotation",
+        "regression"
+      ],
+      "bytes": 3743,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-4839-data\\rotated.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-rotated.ppm"
+      ],
+      "samples_ms": [
+        36.391,
+        33.164,
+        30.586,
+        31.71,
+        31.107,
+        35.906,
+        36.505,
+        37.764,
+        40.972
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 30.586,
+      "max_ms": 40.972,
+      "mean_ms": 34.901,
+      "median_ms": 35.906,
+      "p10_ms": 30.586,
+      "p90_ms": 40.972,
+      "p95_ms": 40.972,
+      "stdev_ms": 3.483,
+      "cv_percent": 9.98
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Financial table",
+      "document_id": "table",
+      "tags": [
+        "table",
+        "chart"
+      ],
+      "bytes": 59795,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\forecast_table_chart.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-forecast_table_chart.ppm"
+      ],
+      "samples_ms": [
+        45.87,
+        41.948,
+        45.593,
+        41.741,
+        43.791,
+        46.385,
+        43.764,
+        43.974,
+        42.713
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 41.741,
+      "max_ms": 46.385,
+      "mean_ms": 43.975,
+      "median_ms": 43.791,
+      "p10_ms": 41.741,
+      "p90_ms": 46.385,
+      "p95_ms": 46.385,
+      "stdev_ms": 1.688,
+      "cv_percent": 3.84
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Multi-column",
+      "document_id": "columns",
+      "tags": [
+        "columns",
+        "text"
+      ],
+      "bytes": 41942,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\government_positions_women.pdf"
+      ],
+      "samples_ms": [
+        18.814,
+        20.488,
+        20.239,
+        22.144,
+        22.972,
+        20.254,
+        18.505,
+        19.763,
+        21.113
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 18.505,
+      "max_ms": 22.972,
+      "mean_ms": 20.477,
+      "median_ms": 20.254,
+      "p10_ms": 18.505,
+      "p90_ms": 22.972,
+      "p95_ms": 22.972,
+      "stdev_ms": 1.444,
+      "cv_percent": 7.05
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Overlapping text",
+      "document_id": "duplicate",
+      "tags": [
+        "text",
+        "regression"
+      ],
+      "bytes": 1181573,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\Document-PublisherError-1.pdf"
+      ],
+      "samples_ms": [
+        20.549,
+        17.046,
+        16.792,
+        16.514,
+        18.301,
+        20.136,
+        18.579,
+        18.369,
+        16.549
+      ],
+      "output": "pages: 1\nkind: Image\nsigned: false\nprocessed: 4 ms\n",
+      "launch_state": null,
+      "min_ms": 16.514,
+      "max_ms": 20.549,
+      "mean_ms": 18.093,
+      "median_ms": 18.301,
+      "p10_ms": 16.514,
+      "p90_ms": 20.549,
+      "p95_ms": 20.549,
+      "stdev_ms": 1.509,
+      "cv_percent": 8.34
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Financial table",
+      "document_id": "table",
+      "tags": [
+        "table",
+        "chart"
+      ],
+      "bytes": 59795,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\forecast_table_chart.pdf"
+      ],
+      "samples_ms": [
+        21.11,
+        20.502,
+        20.112,
+        20.593,
+        19.995,
+        20.729,
+        19.628,
+        21.038,
+        22.235
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.628,
+      "max_ms": 22.235,
+      "mean_ms": 20.66,
+      "median_ms": 20.593,
+      "p10_ms": 19.628,
+      "p90_ms": 22.235,
+      "p95_ms": 22.235,
+      "stdev_ms": 0.764,
+      "cv_percent": 3.7
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Image document",
+      "document_id": "image",
+      "tags": [
+        "image",
+        "baseline"
+      ],
+      "bytes": 2787627,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\fseprd1102849.pdf"
+      ],
+      "samples_ms": [
+        23.621,
+        21.332,
+        23.271,
+        20.859,
+        23.865,
+        21.419,
+        20.485,
+        22.567,
+        20.794
+      ],
+      "output": "pages: 2\nkind: Text\nsigned: false\nprocessed: 6 ms\n",
+      "launch_state": null,
+      "min_ms": 20.485,
+      "max_ms": 23.865,
+      "mean_ms": 22.024,
+      "median_ms": 21.419,
+      "p10_ms": 20.485,
+      "p90_ms": 23.865,
+      "p95_ms": 23.865,
+      "stdev_ms": 1.317,
+      "cv_percent": 5.98
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Text-heavy",
+      "document_id": "text",
+      "tags": [
+        "text",
+        "baseline"
+      ],
+      "bytes": 21157,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\2559 words.pdf"
+      ],
+      "samples_ms": [
+        29.894,
+        23.741,
+        25.368,
+        24.89,
+        28.479,
+        24.715,
+        23.844,
+        23.935,
+        23.205
+      ],
+      "output": "lacinia. Quis commodo odio aenean sed adipiscing Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Pharetra vel turpis nunc eget lorem diam. Euismod nisi porta lorem mollis aliquam ut porttitor. Platea dictumst quisque sagittis purus sit dolor sed viverra ipsum. Non arcu risus quis varius quam quisque id diam. Adipiscing elit ut aliquam amet volutpat consequat. Cursus vitae congue mauris rhoncus aenean vel elit. Vulputate mi sit ametpurus sit. Habitasse platea dictumst vestibulum rhoncus est. Orci nulla pellentesque dignissim enim sit mauris commodo quis imperdiet massa tincidunt. Amet cursus sit amet dictum sit amet. Integer feugiat amet venenatis urna. Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu feugiat. Sit amet scelerisque varius morbi enim nunc faucibus a pellentesque. Eget est lorem ipsum dolor sit. Fringilla consectetur adipiscing elit duis tristique sollicitudin nibh. Dui faucibus in ornare quam viverra orci est ullamcorper eget nulla facilisi etiam dignissim. A arcu cursus vitae congue mauris rhoncus aenean. sagittis eu volutpat. Nunc consequat interdum varius sit amet mattis. Luctus accumsan tortor posuere Fames ac turpis egestas sed tempus urna et pharetra. Donec pretium vulputate sapien nec sagittis ac ut.aliquam malesuada.Morbi blandit cursus risus at ultrices mi tempus. Sapien pellentesque habitant morbi tristique. Amet Turpis tincidunt id aliquet risus feugiat. Quam lacus suspendisse faucibus interdum posuere. Justo justo donec enim diam vulputate ut pharetra. Quam id leo in vitae turpis. Semper viverra nam libero donec enim diam vulputate. Mollis aliquam ut porttitor leo a diam sollicitudin. Quis ipsum suspendisse justo laoreet sit amet. Eget sit amet tellus cras adipiscing. Dolor sit amet consectetur adipiscing elit ultrices gravida dictum. Ut diam quam nulla porttitor massa id neque. Id eu nisl nunc mi ipsum faucibus vitae. Diam quis enim lobortis scelerisque fermentum dui faucibus. Enim sit amet venenatis urna.\n",
+      "launch_state": null,
+      "min_ms": 23.205,
+      "max_ms": 29.894,
+      "mean_ms": 25.341,
+      "median_ms": 24.715,
+      "p10_ms": 23.205,
+      "p90_ms": 29.894,
+      "p95_ms": 29.894,
+      "stdev_ms": 2.305,
+      "cv_percent": 9.1
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Rotation",
+      "document_id": "rotated",
+      "tags": [
+        "rotation",
+        "regression"
+      ],
+      "bytes": 3743,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-4839-data\\rotated.pdf"
+      ],
+      "samples_ms": [
+        20.298,
+        21.568,
+        19.534,
+        21.145,
+        21.285,
+        19.385,
+        19.532,
+        21.794,
+        20.355
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.385,
+      "max_ms": 21.794,
+      "mean_ms": 20.544,
+      "median_ms": 20.355,
+      "p10_ms": 19.385,
+      "p90_ms": 21.794,
+      "p95_ms": 21.794,
+      "stdev_ms": 0.936,
+      "cv_percent": 4.55
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "Text-heavy",
+      "document_id": "text",
+      "tags": [
+        "text",
+        "baseline"
+      ],
+      "bytes": 21157,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\2559 words.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-2559 words.ppm"
+      ],
+      "samples_ms": [
+        42.532,
+        43.602,
+        45.98,
+        48.209,
+        47.601,
+        52.593,
+        47.124,
+        46.059,
+        44.383
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 42.532,
+      "max_ms": 52.593,
+      "mean_ms": 46.454,
+      "median_ms": 46.059,
+      "p10_ms": 42.532,
+      "p90_ms": 52.593,
+      "p95_ms": 52.593,
+      "stdev_ms": 2.973,
+      "cv_percent": 6.4
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Rotation",
+      "document_id": "rotated",
+      "tags": [
+        "rotation",
+        "regression"
+      ],
+      "bytes": 3743,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-4839-data\\rotated.pdf"
+      ],
+      "samples_ms": [
+        17.621,
+        17.261,
+        15.217,
+        16.723,
+        18.366,
+        15.555,
+        16.728,
+        16.893,
+        17.02
+      ],
+      "output": "pages: 1\nkind: Text\nprocessed: 2 ms\n\n## Title = Hello, World!\n\nExample glyphs for selection spanning 2 lines in graphics state\n\n## Page 1\n\n",
+      "launch_state": null,
+      "min_ms": 15.217,
+      "max_ms": 18.366,
+      "mean_ms": 16.82,
+      "median_ms": 16.893,
+      "p10_ms": 15.217,
+      "p90_ms": 18.366,
+      "p95_ms": 18.366,
+      "stdev_ms": 0.966,
+      "cv_percent": 5.74
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "RTL Hebrew",
+      "document_id": "rtl",
+      "tags": [
+        "rtl",
+        "text"
+      ],
+      "bytes": 11611,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\rtl_hebrew_visual_words.pdf"
+      ],
+      "samples_ms": [
+        12.843,
+        14.15,
+        12.979,
+        14.0,
+        13.031,
+        13.055,
+        13.475,
+        13.032,
+        13.609
+      ],
+      "output": "page: 1\nrotated: false\n\n\u05d3\u05d5\u05d7 \u05e9\u05e0\u05ea\u05d9 2024\u05de\u05e1\u05e4\u05e8 \u05d4\u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05d2\u05d3\u05dc \u05d1-12% \u05dc\u05e2\u05d5\u05de\u05ea \u05d4\u05e9\u05e0\u05d4 \u05d4\u05e7\u05d5\u05d3\u05de\u05ea.\u05d4\u05ea\u05e7\u05df (IFRS 16) \u05d0\u05d5\u05de\u05e5 \u05d1\u05e9\u05e0\u05ea 2019.\u05d4\u05d5\u05d5\u05e2\u05d3\u05d4 \u05d1\u05d7\u05e0\u05d4 \u05d0\u05ea \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d1\u05de\u05d4\u05dc\u05da \u05d4\u05e8\u05d1\u05e2\u05d5\u05df \u05d4\u05e9\u05dc\u05d9\u05e9\u05d9.\u05d4\u05de\u05de\u05e6\u05d0\u05d9\u05dd \u05d4\u05d5\u05e6\u05d2\u05d5 \u05dc\u05d4\u05e0\u05d4\u05dc\u05d4, \u05d5\u05dc\u05d0\u05d7\u05e8 \u05d3\u05d9\u05d5\u05df \u05d0\u05d5\u05e9\u05e8\u05d5 \u05d4\u05d4\u05de\u05dc\u05e6\u05d5\u05ea.\u05d4\u05d9\u05d9\u05e9\u05d5\u05dd \u05d9\u05d7\u05dc \u05d1\u05ea\u05d7\u05d9\u05dc\u05ea \u05d4\u05e9\u05e0\u05d4 \u05d4\u05d1\u05d0\u05d4.\n",
+      "launch_state": null,
+      "min_ms": 12.843,
+      "max_ms": 14.15,
+      "mean_ms": 13.353,
+      "median_ms": 13.055,
+      "p10_ms": 12.843,
+      "p90_ms": 14.15,
+      "p95_ms": 14.15,
+      "stdev_ms": 0.478,
+      "cv_percent": 3.58
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Image document",
+      "document_id": "image",
+      "tags": [
+        "image",
+        "baseline"
+      ],
+      "bytes": 2787627,
+      "size_bucket": "L 1\u20135 MB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\fseprd1102849.pdf"
+      ],
+      "samples_ms": [
+        270.713,
+        277.124,
+        277.8,
+        270.299,
+        265.642,
+        257.589,
+        273.537,
+        267.474,
+        261.249
+      ],
+      "output": "ls open to vehicles 50\" Seasonal Designation 04/01-12/14 0.900 2.500\n\nor less in width, with\n\n##### Seasonal Designation\n\nTrails open to motorcycles, Seasonal Designation 06/16-12/14 Entire Length\n\n##### with Seasonal Designation\n\nTrails open to motorcycles, Seasonal Designation 05/16-11/15 1.510 2.670\n\n##### with Seasonal Designation\n\nTrails open to vehicles 50\" Seasonal Designation 05/16-11/30 Entire Length\n\nor less in width, with\n\n##### Seasonal Designation\n\nTrails open to motorcycles, Seasonal Designation 06/21-02/29 Entire Length\n\n##### with Seasonal Designation\n\nTrails open to vehicles 50\" Seasonal Designation 06/16-11/30 Entire Length\n\nor less in width, with\n\n##### Seasonal Designation\n\nTrails open to vehicles 50\" Seasonal Designation 06/16-12/14 Entire Length\n\nor less in width, with\n\n##### Seasonal Designation\n\nTrails open to vehicles 50\" Seasonal Designation 05/15-12/01 Entire Length\n\nor less in width, with\n\n##### Seasonal Designation\n\nTrails open to motorcycles, Seasonal Designation 06/16-12/14 0.000 1.500\n\n##### with Seasonal Designation\n\nTrails open to motorcycles, Seasonal Designation 04/01-12/14 3.760 4.900\n\n##### with Seasonal Designation\n\nTrails open to vehicles 50\" Seasonal Designation 04/01-12/14 0.000 1.900\n\nor less in width, with\n\n##### Seasonal Designation\n\n300 ft. either side Same as permitted Same as permitted 0 0.2 on Trail on Trail Same as permitted Same as permitted 300 ft. either side on Trail on Trail\n\n0.44 End\nSame as permitted Same as permitted 300 ft. either side on Trail on Trail 0 0.41\n\nSame as permitted Same as permitted 300 ft. either side 0.72 End on Trail on Trail 419\n\n101,102,103,112,116,134,159,180,188,\n\n810,817,849,894\n\nSame as permitted Same as permitted 300 ft. either side Entire Length on Trail on Trail\n\n008,011,023,025,028,029,033,038,057,059, 062,066,075,080,082,085,086,094,096,100,\n\n200,201,204,212,213,216,220,221,224,359,360, 361,402,421,430,548,555,600,621,622,623,624, 625,627,628,629,800,802,803,805,806,807,808,809,\n\n",
+      "launch_state": null,
+      "min_ms": 257.589,
+      "max_ms": 277.8,
+      "mean_ms": 269.047,
+      "median_ms": 270.299,
+      "p10_ms": 257.589,
+      "p90_ms": 277.8,
+      "p95_ms": 277.8,
+      "stdev_ms": 6.824,
+      "cv_percent": 2.54
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Signed PDF",
+      "document_id": "signed",
+      "tags": [
+        "signed",
+        "security"
+      ],
+      "bytes": 189320,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-5581-data\\test_sign_PAdES_B-LTA.pdf"
+      ],
+      "samples_ms": [
+        21.374,
+        20.053,
+        19.685,
+        20.708,
+        22.985,
+        21.454,
+        22.545,
+        20.411,
+        20.909
+      ],
+      "output": "ccumsan risus vel bibendum venenatis. Cras nisl metus, egestas posuere augue et, condimentum rutrum nisi. Vivamus elementum ultricies arcu, non faucibus nulla cursus non. Nullam id egestas leo. Cras vitae pretium felis. Nullam vestibulum purus interdum, congue orci et, iaculis ipsum. Nam posuere egestas felis, sit amet convallis erat gravida at. Cras ut facilisis nulla. Maecenas tortor erat, fermentum non lacus nec, dapibus venenatis risus. Nam lobortis nisi dui, sit amet commodo velit accumsan ac. Nam efficitur hendrerit turpis, id mattis sem vulputate eu. Fusce id turpis nec urna lacinia viverra. Nullam eget turpis dignissim, finibus elit eu, dignissim est. In cursus, lorem ac euismod eleifend, lacus metus mollis magna, sed condimentum magna enim ut magna. Aliquam nec eros eu nisl gravida laoreet.\n\nDonec aliquam odio sed imperdiet fringilla. Nunc commodo in risus vel pharetra. Nulla vehicula erat tempor tellus tincidunt, sit amet congue nibh pharetra. Vestibulum varius libero vel molestie pretium. Phasellus egestas, urna et mattis lobortis, lacus urna feugiat erat, id pharetra sapien nisi quis nisl. Vivamus quis risus ex. Nunc condimentum leo nec vehicula venenatis. Proin commodo lorem et lacus dapibus consequat. Vivamus eget viverra lorem. Suspendisse semper tristique vestibulum. Nullam dictum congue viverra. Maecenas varius aliquam turpis, quis tincidunt sem vestibulum vel. In et sagittis tellus. Pellentesque id molestie massa. Etiam tristique urna ut ipsum molestie, sit amet vehicula tellus rutrum.\n\nAliquam nec nisi auctor, euismod lectus ut, tempor tortor. Phasellus a lacus turpis. Donec ut diam lorem. Duis scelerisque magna in bibendum placerat. Proin porttitor magna sit amet erat laoreet condimentum. In faucibus ultrices pharetra. Nullam sodales erat eu ullamcorper sodales. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras elit nulla, iaculis congue accumsan nec, condimentum in erat. Nunc scelerisque tellus mauris.\n\n",
+      "launch_state": null,
+      "min_ms": 19.685,
+      "max_ms": 22.985,
+      "mean_ms": 21.125,
+      "median_ms": 20.909,
+      "p10_ms": 19.685,
+      "p90_ms": 22.985,
+      "p95_ms": 22.985,
+      "stdev_ms": 1.095,
+      "cv_percent": 5.19
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Signed PDF",
+      "document_id": "signed",
+      "tags": [
+        "signed",
+        "security"
+      ],
+      "bytes": 189320,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-5581-data\\test_sign_PAdES_B-LTA.pdf"
+      ],
+      "samples_ms": [
+        14.348,
+        15.399,
+        14.867,
+        16.702,
+        16.929,
+        16.811,
+        17.144,
+        17.015,
+        17.305
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: true\nprocessed: 2 ms\n",
+      "launch_state": null,
+      "min_ms": 14.348,
+      "max_ms": 17.305,
+      "mean_ms": 16.28,
+      "median_ms": 16.811,
+      "p10_ms": 14.348,
+      "p90_ms": 17.305,
+      "p95_ms": 17.305,
+      "stdev_ms": 1.102,
+      "cv_percent": 6.77
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf",
+      "work": "classify + extract markdown",
+      "document": "Financial table",
+      "document_id": "table",
+      "tags": [
+        "table",
+        "chart"
+      ],
+      "bytes": 59795,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\forecast_table_chart.pdf"
+      ],
+      "samples_ms": [
+        18.856,
+        20.966,
+        20.958,
+        21.848,
+        24.93,
+        22.223,
+        22.777,
+        22.112,
+        22.626
+      ],
+      "output": "pages: 1\nkind: Text\nprocessed: 5 ms\n\n||A|B|C|D|E|\n|---|---|---|---|---|---|\n|1|time|observed|Forecast(observed)|L ower C onfiden ce Boun d(obser ved)|Upper C onfiden ce Bound(obser ved)|\n|2|0|13||||\n|3|1|12||||\n|4|2|13.5||||\n|5|3|15||||\n|6|4|16||||\n|7|5|18||||\n|8|6|17.5||||\n|9|7|17.9|17.90|17.90|17.90|\n|10|8||19.73214458|17.99|21.47|\n|11|9||21.59962998|19.81|23.39|\n|12|10||21.62645857|19.78|23.47|\n|13|11||22.85993116|20.96|24.76|\n|14|12||24.72741656|22.78|26.68|\n|15|13||24.75424515|22.75|26.75|\n\n**Figure 13.3. Graph of Projection Estimates**\n\n<u>Open Template in Microsoft Excel</u>\n\nHaving obtained price forecasts, our next step would be to re-estimate CR for GCS based on the forecasted prices. In addition, we may use the confidence interval forecasts to find a most optimistic forecast using the upper confidence interval forecasts and a pessimistic forecast using the lower bound forecasts.\n\n298 | Ch. 13. Homogeneous Investment Types\n\n",
+      "launch_state": null,
+      "min_ms": 18.856,
+      "max_ms": 24.93,
+      "mean_ms": 21.922,
+      "median_ms": 22.112,
+      "p10_ms": 18.856,
+      "p90_ms": 24.93,
+      "p95_ms": 24.93,
+      "stdev_ms": 1.645,
+      "cv_percent": 7.5
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-first-page",
+      "work": "open document + first-page text layer",
+      "document": "Signed PDF",
+      "document_id": "signed",
+      "tags": [
+        "signed",
+        "security"
+      ],
+      "bytes": 189320,
+      "size_bucket": "S 50\u2013250 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--first-page",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\sumatrapdf\\tests\\issue-5581-data\\test_sign_PAdES_B-LTA.pdf"
+      ],
+      "samples_ms": [
+        19.434,
+        18.678,
+        18.398,
+        17.213,
+        16.802,
+        17.738,
+        16.316,
+        17.627,
+        16.93
+      ],
+      "output": "n accumsan risus vel bibendum venenatis. Cras nisl metus, egestas posuere augue et, condimentum rutrum nisi. Vivamus elementum ultricies arcu, non faucibus nulla cursus non. Nullam id egestas leo. Cras vitae pretium felis. Nullam vestibulum purus interdum, congue orci et, iaculis ipsum. Nam posuere egestas felis, sit amet convallis erat gravida at. Cras ut facilisis nulla. Maecenas tortor erat, fermentum non lacus nec, dapibus venenatis risus. Nam lobortis nisi dui, sit amet commodo velit accumsan ac. Nam efficitur hendrerit turpis, id mattis sem vulputate eu. Fusce id turpis nec urna lacinia viverra. Nullam eget turpis dignissim, finibus elit eu, dignissim est. In cursus, lorem ac euismod eleifend, lacus metus mollis magna, sed condimentum magna enim ut magna. Aliquam nec eros eu nisl gravida laoreet. Donec aliquam odio sed imperdiet fringilla. Nunc commodo in risus vel pharetra. Nulla vehicula erat tempor tellus tincidunt, sit amet congue nibh pharetra. Vestibulum varius libero vel molestie pretium. Phasellus egestas, urna et mattis lobortis, lacus urna feugiat erat, id pharetra sapien nisi quis nisl. Vivamus quis risus ex. Nunc condimentum leo nec vehicula venenatis. Proin commodo lorem et lacus dapibus consequat. Vivamus eget viverra lorem. Suspendisse semper tristique vestibulum. Nullam dictum congue viverra. Maecenas varius aliquam turpis, quis tincidunt sem vestibulum vel. In et sagittis tellus. Pellentesque id molestie massa. Etiam tristique urna ut ipsum molestie, sit amet vehicula tellus rutrum. Aliquam nec nisi auctor, euismod lectus ut, tempor tortor. Phasellus a lacus turpis. Donec ut diam lorem. Duis scelerisque magna in bibendum placerat. Proin porttitor magna sit amet erat laoreet condimentum. In faucibus ultrices pharetra. Nullam sodales erat eu ullamcorper sodales. Orci variusnatoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras elit nulla, iaculis congue accumsan nec, condimentum in erat. Nunc scelerisque tellus mauris. \n",
+      "launch_state": null,
+      "min_ms": 16.316,
+      "max_ms": 19.434,
+      "mean_ms": 17.682,
+      "median_ms": 17.627,
+      "p10_ms": 16.316,
+      "p90_ms": 19.434,
+      "p95_ms": 19.434,
+      "stdev_ms": 1.0,
+      "cv_percent": 5.66
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF window",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-window",
+      "work": "launch to visible document window",
+      "document": "Text-heavy",
+      "document_id": "text",
+      "tags": [
+        "text",
+        "baseline"
+      ],
+      "bytes": 21157,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf-window.exe",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\2559 words.pdf"
+      ],
+      "samples_ms": [
+        21.36,
+        20.633,
+        21.306,
+        19.94,
+        19.683,
+        19.689,
+        21.48,
+        19.673,
+        19.635
+      ],
+      "output": "",
+      "launch_state": "cold process; warm OS cache after one excluded warm-up",
+      "min_ms": 19.635,
+      "max_ms": 21.48,
+      "mean_ms": 20.378,
+      "median_ms": 19.94,
+      "p10_ms": 19.635,
+      "p90_ms": 21.48,
+      "p95_ms": 21.48,
+      "stdev_ms": 0.814,
+      "cv_percent": 4.0
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-inspect",
+      "work": "classify only",
+      "document": "Text-heavy",
+      "document_id": "text",
+      "tags": [
+        "text",
+        "baseline"
+      ],
+      "bytes": 21157,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--inspect",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\CalyPdf\\Caly.Benchmarks\\2559 words.pdf"
+      ],
+      "samples_ms": [
+        12.63,
+        15.136,
+        13.413,
+        12.931,
+        11.292,
+        13.688,
+        16.429,
+        13.455,
+        13.548
+      ],
+      "output": "pages: 1\nkind: Text\nsigned: false\nprocessed: 0 ms\n",
+      "launch_state": null,
+      "min_ms": 11.292,
+      "max_ms": 16.429,
+      "mean_ms": 13.614,
+      "median_ms": 13.455,
+      "p10_ms": 11.292,
+      "p90_ms": 16.429,
+      "p95_ms": 16.429,
+      "stdev_ms": 1.464,
+      "cv_percent": 10.75
+    },
+    {
+      "reader": "BlazePDF",
+      "adapter_name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "reader_id": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "document": "RTL Hebrew",
+      "document_id": "rtl",
+      "tags": [
+        "rtl",
+        "text"
+      ],
+      "bytes": 11611,
+      "size_bucket": "XS <50 KB",
+      "status": "ok",
+      "command": [
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\release\\blazepdf.exe",
+        "--render",
+        "C:\\Users\\markm\\Github\\blazepdf\\vendors\\pdf-inspector\\tests\\fixtures\\rtl_hebrew_visual_words.pdf",
+        "C:\\Users\\markm\\Github\\blazepdf\\target\\benchmark-artifacts\\blazepdf-render-rtl_hebrew_visual_words.ppm"
+      ],
+      "samples_ms": [
+        34.54,
+        33.571,
+        32.943,
+        31.202,
+        29.889,
+        30.395,
+        30.045,
+        27.745,
+        28.325
+      ],
+      "output": "",
+      "launch_state": null,
+      "min_ms": 27.745,
+      "max_ms": 34.54,
+      "mean_ms": 30.962,
+      "median_ms": 30.395,
+      "p10_ms": 27.745,
+      "p90_ms": 34.54,
+      "p95_ms": 34.54,
+      "stdev_ms": 2.324,
+      "cv_percent": 7.51
+    }
+  ]
+}

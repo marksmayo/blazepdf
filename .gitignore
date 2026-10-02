@@ -1,0 +1,33 @@
+**/target/
+**/__pycache__/
+**/.pytest_cache/
+**/.git/
+/downloads/
+/.benchmarks/
+/out.txt
+/scripts/tmp*/
+*.pyc
+*.pdb
+*.ppm
+*.exe
+*.dll
+*.msi
+*.zip
+/benchmarks/adapters/**/bin/
+/benchmarks/adapters/**/obj/
+.env
+.env.*
+!.env.example
+
+# Original vendor checkouts remain local; the published snapshot is in crates/.
+/vendors/*
+
+# Curated final evidence; intermediate probes remain local.
+/results/*
+!/results/.canonical-input.json
+!/results/benchmark-20260930T040051Z-merged.json
+!/results/benchmark-20261002T072651Z.json
+!/results/benchmark-20261002T072651Z-merged.json
+!/results/benchmark-dashboard.html
+!/results/benchmark-workload-graphs.html
+!/results/remaining-classification-100-optimizations.md

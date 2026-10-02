@@ -1,0 +1,4 @@
+# Keep the CLI and viewport independent of per-process CRT DLL initialization.
+# Paired cold-launch tests showed a benefit; other targets retain their defaults.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

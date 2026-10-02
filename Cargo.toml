@@ -1,0 +1,59 @@
+[package]
+name = "blazepdf"
+version = "0.1.0"
+edition = "2021"
+description = "Benchmark-driven, low-latency PDF reader core"
+license = "MIT"
+
+[dependencies]
+memchr = "2.7"
+pdf-inspector = { path = "crates/pdf-inspector", features = ["render-pdfium"] }
+# Desktop viewport only. `default-features = false` drops two costs that sit
+# directly on the path to first paint:
+#   - `accesskit` initialises Windows UI Automation during window creation,
+#     which is why the window binary imported `uiautomationcore.dll`;
+#   - the default set compiles BOTH renderer backends, and only OpenGL is
+#     ever loaded at runtime, so `wgpu` was pure weight.
+# `default_fonts` is kept: without it egui has no font at all and the
+# viewport renders no text. The window binary trims the families it does not
+# use instead (see `src/bin/blazepdf-window.rs`).
+eframe = { version = "0.31", default-features = false, optional = true }
+
+[dev-dependencies]
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_System_LibraryLoader",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[features]
+default = ["desktop"]
+# The egui viewport. The library and the CLI never touch it, so a
+# `--no-default-features` build is a PDF core with no GUI stack at all.
+desktop = ["dep:eframe", "eframe/default_fonts", "eframe/glow"]
+# Build the same window with the alternate backend available. The executable
+# selects it with BLAZEPDF_RENDERER=wgpu, so the two cold-start paths can be
+# compared without changing the benchmark protocol.
+desktop-wgpu = ["desktop", "eframe/wgpu"]
+
+[[bin]]
+name = "blazepdf"
+path = "src/main.rs"
+
+[[bin]]
+name = "blazepdf-window"
+path = "src/bin/blazepdf-window.rs"
+required-features = ["desktop"]
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+# One-shot CLI runs pay process startup on every measured workload, so the
+# image the loader has to map is latency the reader can never win back.
+# Unwinding is dead weight for a tool whose failure mode is exiting with a
+# message.
+panic = "abort"
+strip = true

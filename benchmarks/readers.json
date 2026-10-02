@@ -1,0 +1,488 @@
+{
+  "schema": 1,
+  "readers": [
+    {
+      "id": "blazepdf-first-page",
+      "name": "BlazePDF first page",
+      "product": "BlazePDF",
+      "repository": "local",
+      "path": ".",
+      "adapter": "blazepdf",
+      "args": [
+        "--first-page"
+      ],
+      "work": "open document + first-page text layer",
+      "build": [
+        "cargo",
+        "build",
+        "--release",
+        "--no-default-features",
+        "--bin",
+        "blazepdf"
+      ]
+    },
+    {
+      "id": "blazepdf-inspect",
+      "name": "BlazePDF fast open",
+      "product": "BlazePDF",
+      "repository": "local",
+      "path": ".",
+      "adapter": "blazepdf",
+      "args": [
+        "--inspect"
+      ],
+      "work": "classify only",
+      "build": [
+        "cargo",
+        "build",
+        "--release",
+        "--no-default-features",
+        "--bin",
+        "blazepdf"
+      ]
+    },
+    {
+      "id": "blazepdf-render",
+      "name": "BlazePDF native render",
+      "product": "BlazePDF",
+      "repository": "local",
+      "path": ".",
+      "adapter": "blazepdf-render",
+      "work": "render first page at 150 DPI",
+      "build": [
+        "cargo",
+        "build",
+        "--release",
+        "--no-default-features",
+        "--bin",
+        "blazepdf"
+      ]
+    },
+    {
+      "id": "blazepdf",
+      "name": "BlazePDF",
+      "product": "BlazePDF",
+      "repository": "local",
+      "path": ".",
+      "adapter": "blazepdf",
+      "work": "classify + extract markdown",
+      "build": [
+        "cargo",
+        "build",
+        "--release",
+        "--no-default-features",
+        "--bin",
+        "blazepdf"
+      ]
+    },
+    {
+      "id": "blazepdf-window",
+      "name": "BlazePDF window",
+      "product": "BlazePDF",
+      "repository": "local",
+      "path": ".",
+      "adapter": "window-ready-signal",
+      "work": "launch to visible document window",
+      "executable": "target/release/blazepdf-window.exe",
+      "ready_signal": "BLAZEPDF_FIRST_FRAME_READY",
+      "environment": {
+        "BLAZEPDF_BENCHMARK_READY": "1",
+        "BLAZEPDF_BENCHMARK_MINIMAL": "1",
+        "BLAZEPDF_BENCHMARK_SHELL_ONLY": "1"
+      },
+      "require_visible_window": true,
+      "stable_window_ms": 25,
+      "build": [
+        "cargo",
+        "build",
+        "--release",
+        "--bin",
+        "blazepdf-window"
+      ]
+    },
+    {
+      "id": "pdf-inspector",
+      "name": "pdf-inspector",
+      "product": "pdf-inspector",
+      "repository": "https://github.com/firecrawl/pdf-inspector",
+      "path": "vendors/pdf-inspector",
+      "adapter": "pdf-inspector",
+      "work": "classify + extract markdown",
+      "build": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "vendors/pdf-inspector/Cargo.toml",
+        "--release",
+        "--bin",
+        "pdf2md"
+      ]
+    },
+    {
+      "id": "pdf-inspector-inspect",
+      "name": "pdf-inspector detect",
+      "product": "pdf-inspector",
+      "repository": "https://github.com/firecrawl/pdf-inspector",
+      "path": "vendors/pdf-inspector",
+      "adapter": "pdf-inspector",
+      "args": [
+        "--detect-only"
+      ],
+      "work": "classify only",
+      "build": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "vendors/pdf-inspector/Cargo.toml",
+        "--release",
+        "--bin",
+        "pdf2md"
+      ]
+    },
+    {
+      "id": "pdf-inspector-first-page",
+      "name": "pdf-inspector first page",
+      "product": "pdf-inspector",
+      "repository": "https://github.com/firecrawl/pdf-inspector",
+      "path": "vendors/pdf-inspector",
+      "adapter": "pdf-inspector",
+      "args": [
+        "--items-json",
+        "--select-pages",
+        "1"
+      ],
+      "work": "open document + first-page text layer",
+      "build": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "vendors/pdf-inspector/Cargo.toml",
+        "--release",
+        "--bin",
+        "pdf2md"
+      ]
+    },
+    {
+      "id": "caly-pdf",
+      "name": "CalyPdf core",
+      "product": "CalyPdf",
+      "repository": "https://github.com/CalyPdf/CalyPdf",
+      "path": "vendors/CalyPdf",
+      "adapter": "caly-core",
+      "work": "open document + first-page text layer",
+      "build": [
+        "dotnet",
+        "build",
+        "benchmarks/adapters/CalyRunner/CalyRunner.csproj",
+        "-c",
+        "Release"
+      ]
+    },
+    {
+      "id": "caly-pdf-inspect",
+      "name": "CalyPdf metadata inspect",
+      "product": "CalyPdf",
+      "repository": "https://github.com/CalyPdf/CalyPdf",
+      "path": "vendors/CalyPdf",
+      "adapter": "caly-core",
+      "args": [
+        "--inspect"
+      ],
+      "work": "classify only",
+      "build": [
+        "dotnet",
+        "build",
+        "benchmarks/adapters/CalyRunner/CalyRunner.csproj",
+        "-c",
+        "Release"
+      ]
+    },
+    {
+      "id": "caly-pdf-markdown",
+      "name": "CalyPdf text-to-Markdown",
+      "product": "CalyPdf",
+      "repository": "https://github.com/CalyPdf/CalyPdf",
+      "path": "vendors/CalyPdf",
+      "adapter": "caly-core",
+      "args": [
+        "--markdown"
+      ],
+      "work": "classify + extract markdown",
+      "build": [
+        "dotnet",
+        "build",
+        "benchmarks/adapters/CalyRunner/CalyRunner.csproj",
+        "-c",
+        "Release"
+      ]
+    },
+    {
+      "id": "sumatrapdf",
+      "name": "SumatraPDF",
+      "product": "SumatraPDF",
+      "repository": "https://github.com/sumatrapdfreader/sumatrapdf",
+      "path": "vendors/sumatrapdf",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Users/markm/AppData/Local/SumatraPDF/SumatraPDF.exe",
+      "args": [
+        "-for-testing",
+        "-new-window"
+      ]
+    },
+    {
+      "id": "sumatrapdf-first-page",
+      "name": "SumatraPDF native text",
+      "product": "SumatraPDF",
+      "repository": "https://github.com/sumatrapdfreader/sumatrapdf",
+      "path": "vendors/sumatrapdf",
+      "adapter": "sumatra-tool-text",
+      "work": "open document + first-page text layer",
+      "executable": "vendors/sumatrapdf-tool/extracted/sumatrapdf-tool.exe"
+    },
+    {
+      "id": "sumatrapdf-metadata",
+      "name": "SumatraPDF page metadata",
+      "product": "SumatraPDF",
+      "repository": "https://github.com/sumatrapdfreader/sumatrapdf",
+      "path": "vendors/sumatrapdf",
+      "adapter": "sumatra-tool-pages",
+      "work": "classify only",
+      "executable": "vendors/sumatrapdf-tool/extracted/sumatrapdf-tool.exe"
+    },
+    {
+      "id": "pdf-xchange-editor",
+      "name": "PDF-XChange Editor",
+      "product": "PDF-XChange Editor",
+      "repository": "https://github.com/PDFXChange-Editor/PDF-XChange-Editor-Windows-Download",
+      "path": "vendors/pdf-xchange-editor",
+      "work": "launch to visible document window",
+      "adapter": "window-ready",
+      "executable": "C:/Program Files/PDF-XChange/PDF Editor/PXCEditor.exe"
+    },
+    {
+      "id": "foxit-reader",
+      "name": "Foxit PDF Reader",
+      "product": "Foxit PDF Reader",
+      "repository": "https://www.foxit.com/pdf-reader/",
+      "path": "downloads",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "package": "downloads/FoxitPDFReader20262_L10N_Setup_x64.exe",
+      "executable": "C:/Program Files/Foxit Software/Foxit PDF Reader/FoxitPDFReader.exe"
+    },
+    {
+      "id": "mupdf-first-page",
+      "name": "MuPDF first-page text",
+      "product": "MuPDF",
+      "repository": "https://mupdf.com/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows",
+      "adapter": "mutool-text",
+      "work": "open document + first-page text layer",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows/mutool.exe"
+    },
+    {
+      "id": "mupdf-info",
+      "name": "MuPDF structural inspection",
+      "product": "MuPDF",
+      "repository": "https://mupdf.com/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows",
+      "adapter": "mutool-info",
+      "work": "classify only",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows/mutool.exe"
+    },
+    {
+      "id": "mupdf-classify-extract",
+      "name": "MuPDF full-text extraction",
+      "product": "MuPDF",
+      "repository": "https://mupdf.com/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows",
+      "adapter": "mutool-text-full",
+      "work": "classify + extract markdown",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows/mutool.exe"
+    },
+    {
+      "id": "mupdf-render",
+      "name": "MuPDF first-page render",
+      "product": "MuPDF",
+      "repository": "https://mupdf.com/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows",
+      "adapter": "mutool-render",
+      "work": "render first page at 150 DPI",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows/mutool.exe"
+    },
+    {
+      "id": "mupdf-window",
+      "name": "MuPDF Reader window",
+      "product": "MuPDF",
+      "repository": "https://mupdf.com/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ArtifexSoftware.mutool_Microsoft.Winget.Source_8wekyb3d8bbwe/mupdf-1.23.0-windows/mupdf.exe"
+    },
+    {
+      "id": "sioyek-window",
+      "name": "sioyek",
+      "product": "sioyek",
+      "repository": "https://github.com/ahrm/sioyek",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ahrm.sioyek_Microsoft.Winget.Source_8wekyb3d8bbwe/sioyek-release-windows",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WinGet/Packages/ahrm.sioyek_Microsoft.Winget.Source_8wekyb3d8bbwe/sioyek-release-windows/sioyek.exe"
+    },
+    {
+      "id": "edge-pdf-window",
+      "name": "Microsoft Edge PDF reader",
+      "product": "Microsoft Edge PDF reader",
+      "repository": "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-pdf",
+      "path": "C:/Program Files (x86)/Microsoft/Edge/Application",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+      "args": [
+        "--new-window",
+        "--user-data-dir=C:/Users/markm/Github/blazepdf/target/benchmark-artifacts/edge-profile",
+        "--no-first-run",
+        "--no-default-browser-check",
+      "--disable-background-networking",
+        "--disable-default-apps"
+      ],
+      "window_title": "Microsoft Edge"
+    },
+    {
+      "id": "chrome-pdf-window",
+      "name": "Google Chrome PDF viewer",
+      "product": "Google Chrome PDF viewer",
+      "repository": "https://support.google.com/chrome/answer/16215622",
+      "path": "C:/Program Files/Google/Chrome/Application",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "args": [
+        "--new-window",
+        "--user-data-dir=C:/Users/markm/Github/blazepdf/target/benchmark-artifacts/chrome-profile",
+        "--no-first-run",
+        "--no-default-browser-check",
+      "--disable-background-networking",
+        "--disable-default-apps"
+      ],
+      "window_title": "Google Chrome"
+    },
+    {
+      "id": "sejda-window",
+      "name": "Sejda PDF Desktop",
+      "product": "Sejda PDF Desktop",
+      "repository": "https://www.sejda.com/desktop",
+      "path": "C:/Program Files/Sejda PDF Desktop",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/Sejda PDF Desktop/Sejda PDF Desktop.exe"
+    },
+    {
+      "id": "wps-pdf-window",
+      "name": "WPS Office PDF",
+      "product": "WPS Office PDF",
+      "repository": "https://www.wps.com/feature/free-pdf-open-app/",
+      "path": "C:/Users/markm/AppData/Local/kingsoft/WPS Office/12.2.0.23196/office6",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Users/markm/AppData/Local/kingsoft/WPS Office/12.2.0.23196/office6/wpspdf.exe"
+    },
+    {
+      "id": "pdfgear-window",
+      "name": "PDFgear",
+      "product": "PDFgear",
+      "repository": "https://www.pdfgear.com/pdf-reader/",
+      "path": "C:/Program Files/PDFgear",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+    "executable": "C:/Program Files/PDFgear/pdfeditor.exe"
+    },
+    {
+      "id": "xodo-window",
+      "name": "Xodo PDF Reader",
+      "product": "Xodo PDF Reader",
+      "repository": "https://xodo.com/pdf-studio/free-pdf-reader",
+      "path": "C:/Program Files/Apryse Software/Xodo PDF Reader",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/Apryse Software/Xodo PDF Reader/xodopdfreader.exe",
+      "require_process_alive": true
+    },
+    {
+      "id": "nitro-pdf-window",
+      "name": "Nitro PDF Pro",
+      "product": "Nitro PDF Pro",
+      "repository": "https://www.gonitro.com/pdf-editor",
+      "path": "C:/Program Files/Nitro/PDF Pro/14",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/Nitro/PDF Pro/14/NitroPDF.exe"
+    },
+    {
+      "id": "okular-window",
+      "name": "Okular",
+      "product": "Okular",
+      "repository": "https://okular.kde.org/",
+      "path": "C:/Users/markm/AppData/Local/Microsoft/WindowsApps",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Users/markm/AppData/Local/Microsoft/WindowsApps/okular.exe"
+    },
+    {
+      "id": "adobe-reader-window",
+      "name": "Adobe Acrobat Reader",
+      "product": "Adobe Acrobat Reader",
+      "repository": "https://www.adobe.com/acrobat/pdf-reader.html",
+      "path": "C:/Program Files/Adobe/Acrobat Reader",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe",
+      "require_process_alive": true
+    },
+    {
+      "id": "pdf24-window",
+      "name": "PDF24 Reader",
+      "product": "PDF24 Reader",
+      "repository": "https://www.pdf24.org/",
+      "path": "C:/Program Files/PDF24",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "executable": "C:/Program Files/PDF24/pdf24-Reader.exe"
+    },
+    {
+      "id": "pdf24-qpdf",
+      "name": "PDF24 bundled qpdf",
+      "product": "PDF24 bundled qpdf",
+      "repository": "https://www.pdf24.org/",
+      "path": "C:/Program Files/PDF24/qpdf",
+      "adapter": "qpdf-npages",
+      "work": "classify only",
+      "executable": "C:/Program Files/PDF24/qpdf/bin/qpdf.exe"
+    },
+    {
+      "id": "updf-window",
+      "name": "UPDF",
+      "product": "UPDF",
+      "repository": "https://updf.com/",
+      "path": "downloads",
+      "adapter": "window-ready",
+      "work": "launch to visible document window",
+      "package": "downloads/updf-win-full.exe",
+      "executable": "C:/Program Files (x86)/UPDF/UPDF.exe"
+    },
+    {
+      "id": "slim-pdf-window",
+      "name": "Slim PDF Reader",
+      "product": "Slim PDF Reader",
+      "repository": "https://www.investintech.com/resources/freetools/slimpdfreader/",
+      "path": "downloads",
+      "adapter": "window-ready",
+      "work": "launch to visible application window (document load not observable)",
+      "package": "downloads/InstallSlimPDFReader.exe",
+      "executable": "C:/Program Files (x86)/Investintech.com Inc/Slim PDF Reader 2.0/SlimPDFReader.exe",
+      "window_title": "Slim PDF Reader"
+    }
+  ]
+}

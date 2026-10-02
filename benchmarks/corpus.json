@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "documents": [
+    {"id":"text","label":"Text-heavy","path":"vendors/CalyPdf/Caly.Benchmarks/2559 words.pdf","tags":["text","baseline"]},
+    {"id":"image","label":"Image document","path":"vendors/CalyPdf/Caly.Benchmarks/fseprd1102849.pdf","tags":["image","baseline"]},
+    {"id":"duplicate","label":"Overlapping text","path":"vendors/CalyPdf/Caly.Benchmarks/Document-PublisherError-1.pdf","tags":["text","regression"]},
+    {"id":"table","label":"Financial table","path":"vendors/pdf-inspector/tests/fixtures/forecast_table_chart.pdf","tags":["table","chart"]},
+    {"id":"columns","label":"Multi-column","path":"vendors/pdf-inspector/tests/fixtures/government_positions_women.pdf","tags":["columns","text"]},
+    {"id":"rtl","label":"RTL Hebrew","path":"vendors/pdf-inspector/tests/fixtures/rtl_hebrew_visual_words.pdf","tags":["rtl","text"],"window_title":"Hebrew text stored in visual order, one run per word"},
+    {"id":"rotated","label":"Rotation","path":"vendors/sumatrapdf/tests/issue-4839-data/rotated.pdf","tags":["rotation","regression"]},
+    {"id":"signed","label":"Signed PDF","path":"vendors/sumatrapdf/tests/issue-5581-data/test_sign_PAdES_B-LTA.pdf","tags":["signed","security"],"window_title":"Test Document"}
+  ]
+}

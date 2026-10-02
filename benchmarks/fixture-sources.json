@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "fixtures": [
+    {
+      "path": "vendors/CalyPdf/Caly.Benchmarks/2559 words.pdf",
+      "url": "https://raw.githubusercontent.com/CalyPdf/CalyPdf/2a365a9b348a05994c215f7dd3b66ccdd4c22cd0/Caly.Benchmarks/2559%20words.pdf",
+      "sha256": "a620cd1a32c4c0fc3424011a2d7f141c3000717e32ae8db7faf251fec05b1140"
+    },
+    {
+      "path": "vendors/CalyPdf/Caly.Benchmarks/fseprd1102849.pdf",
+      "url": "https://raw.githubusercontent.com/CalyPdf/CalyPdf/2a365a9b348a05994c215f7dd3b66ccdd4c22cd0/Caly.Benchmarks/fseprd1102849.pdf",
+      "sha256": "a8f8bdf0ae819b4d449dce4515fe12b6b343cd9092643ea5fe29426a492dcbb1"
+    },
+    {
+      "path": "vendors/CalyPdf/Caly.Benchmarks/Document-PublisherError-1.pdf",
+      "url": "https://raw.githubusercontent.com/CalyPdf/CalyPdf/2a365a9b348a05994c215f7dd3b66ccdd4c22cd0/Caly.Benchmarks/Document-PublisherError-1.pdf",
+      "sha256": "8bb575a68292de8fe1b5bea25ce44ebc7bc372ce453cc8ca0cfc91939a2c58f5"
+    },
+    {
+      "path": "vendors/pdf-inspector/tests/fixtures/forecast_table_chart.pdf",
+      "url": "https://raw.githubusercontent.com/firecrawl/pdf-inspector/876fe9ac65c1b05512b9a1a182b5c56bcfdd6c39/tests/fixtures/forecast_table_chart.pdf",
+      "sha256": "a0edae1fa147c7bb78ebc493743a68ba4372b5ead31f2a2b146c35119462379e"
+    },
+    {
+      "path": "vendors/pdf-inspector/tests/fixtures/government_positions_women.pdf",
+      "url": "https://raw.githubusercontent.com/firecrawl/pdf-inspector/876fe9ac65c1b05512b9a1a182b5c56bcfdd6c39/tests/fixtures/government_positions_women.pdf",
+      "sha256": "4682941b1a9a3ec96599d8188b673e8c6d1c4f2a555b5dc0d739c6c706815553"
+    },
+    {
+      "path": "vendors/pdf-inspector/tests/fixtures/rtl_hebrew_visual_words.pdf",
+      "url": "https://raw.githubusercontent.com/firecrawl/pdf-inspector/876fe9ac65c1b05512b9a1a182b5c56bcfdd6c39/tests/fixtures/rtl_hebrew_visual_words.pdf",
+      "sha256": "1a489feaa4e241b777d7ace9ceb241d5999061b710cd76b1d4d5b17e87a24ecd"
+    },
+    {
+      "path": "vendors/sumatrapdf/tests/issue-4839-data/rotated.pdf",
+      "url": "https://raw.githubusercontent.com/sumatrapdfreader/sumatrapdf/46a79eb59c949a9b7a4c4d2b701b82a07a0c9730/tests/issue-4839-data/rotated.pdf",
+      "sha256": "811f64f85f4ef4098cdebf9008433f80ef705e39cd7b12fdc133e950792be941"
+    },
+    {
+      "path": "vendors/sumatrapdf/tests/issue-5581-data/test_sign_PAdES_B-LTA.pdf",
+      "url": "https://raw.githubusercontent.com/sumatrapdfreader/sumatrapdf/46a79eb59c949a9b7a4c4d2b701b82a07a0c9730/tests/issue-5581-data/test_sign_PAdES_B-LTA.pdf",
+      "sha256": "da0c8b52464c095d9f6926f383a6ae4db2e4f9461b40aa445c7be9fb55991c9e"
+    }
+  ]
+}
