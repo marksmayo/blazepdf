@@ -7,6 +7,9 @@
 [![Rust tested 1.98.0](https://img.shields.io/badge/Rust-tested%201.98.0-orange?logo=rust)](#build-and-run)
 [![Python tested 3.13.2](https://img.shields.io/badge/Python-tested%203.13.2-blue?logo=python&logoColor=white)](#build-and-run)
 [![Benchmark gold 40/40](https://img.shields.io/badge/benchmark_gold-40%2F40-gold)](#medal--score-table)
+[![Rust tracked lines 140,050](https://img.shields.io/badge/Rust_lines-140%2C050-orange?logo=rust)](#repository-line-counts)
+[![Python tracked lines 1,644](https://img.shields.io/badge/Python_lines-1%2C644-blue?logo=python&logoColor=white)](#repository-line-counts)
+[![HTML tracked lines 11](https://img.shields.io/badge/HTML_lines-11-E34F26?logo=html5&logoColor=white)](#repository-line-counts)
 
 A benchmark-driven Rust PDF reader core, CLI, and lightweight desktop viewport.
 Classification, first-page text, native rendering, and full Markdown extraction are
@@ -239,6 +242,16 @@ Missing installations are recorded as skipped. Other vendors' software is not bu
 | `scripts/` | Benchmarks, comparisons and report/documentation generation |
 | `results/` | Published final raw evidence and standalone reports |
 | `docs/benchmark-timings.md` | Timings for every measured product |
+
+## Repository line counts
+
+The line-count badges are a snapshot of physical lines in Git-tracked `.rs`, `.py`
+and `.html` files, including comments and blank lines. Rust includes the modified
+vendored PDF core and tests (83 files); Python covers the harness, generators and
+tests (21 files). HTML covers the two generated, minified benchmark reports (11
+physical lines), not HTML templates embedded in Python strings. These are file-line
+counts, not executable-code counts or live CI metrics. Untracked vendor checkouts,
+build outputs and downloaded fixtures are excluded.
 
 ## License and attribution
 
