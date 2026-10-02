@@ -1,5 +1,13 @@
 # BlazePDF
 
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)](https://github.com/marksmayo/blazepdf/issues)
+[![Star to support](https://img.shields.io/github/stars/marksmayo/blazepdf?style=flat&label=star%20to%20support)](https://github.com/marksmayo/blazepdf)
+[![MIT license](https://img.shields.io/github/license/marksmayo/blazepdf)](LICENSE)
+[![Verified checks passing](https://img.shields.io/badge/verified_checks-passing-brightgreen)](#verification)
+[![Rust tested 1.98.0](https://img.shields.io/badge/Rust-tested%201.98.0-orange?logo=rust)](#build-and-run)
+[![Python tested 3.13.2](https://img.shields.io/badge/Python-tested%203.13.2-blue?logo=python&logoColor=white)](#build-and-run)
+[![Benchmark gold 40/40](https://img.shields.io/badge/benchmark_gold-40%2F40-gold)](#medal--score-table)
+
 A benchmark-driven Rust PDF reader core, CLI, and lightweight desktop viewport.
 Classification, first-page text, native rendering, and full Markdown extraction are
 separate cost tiers: opening a document need not pay for every capability at once.
@@ -237,3 +245,20 @@ Missing installations are recorded as skipped. Other vendors' software is not bu
 BlazePDF's own code is [MIT licensed](LICENSE). The Firecrawl PDF core, Adobe CMaps,
 downloaded documents and runtime dependencies retain their notices and terms.
 See [NOTICE.md](NOTICE.md) for source provenance and attribution.
+
+## Verification
+
+The **verified checks passing** badge records the local publication checks on
+2 October 2026: three Rust CLI tests, 18 reader acceptance tests, both allocation
+regression gates, three Python documentation/fixture tests, workload-graph checks,
+and both canonical-report selection tests. The README timing tables also match the
+canonical JSON, and all eight commit-pinned upstream fixture hashes were verified.
+
+This is a verified snapshot, **not a live CI badge or a claim that every optional
+test in the repository has run**. Rust and Python badges show the tested toolchain
+versions, not minimum supported versions. The gold badge describes the published
+benchmark snapshot and its methodology above.
+
+Contributions are welcome: [open an issue](https://github.com/marksmayo/blazepdf/issues)
+to discuss a change, or submit a pull request with focused tests. If this project is
+useful to you, click **Star** at the top of the repository to support it.
