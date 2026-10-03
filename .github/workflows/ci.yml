@@ -1,0 +1,42 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-checks:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Install stable Rust
+        run: rustup toolchain install stable --profile minimal
+      - name: Download and verify pinned test corpus
+        run: python scripts/bootstrap_benchmark_corpus.py
+      - name: Verify fixture hashes
+        run: python scripts/bootstrap_benchmark_corpus.py --check
+      - name: Build CLI
+        run: cargo +stable build --locked --no-default-features --bin blazepdf
+      - name: CLI and reader acceptance tests
+        run: cargo +stable test --locked --no-default-features --bin blazepdf --test reader_acceptance -- --skip native_renderer_returns_a_first_page_bitmap
+      - name: Allocation regression gates
+        run: cargo +stable test --locked --no-default-features --test inspection_allocation_budget --test extraction_allocation_budget
+      - name: Workload graph tests
+        run: python scripts/test_workload_graphs.py
+      - name: Canonical report selection tests
+        run: python scripts/test_update_canonical_reports.py
+      - name: Documentation and fixture tests
+        run: python scripts/test_readme_benchmarks.py
+      - name: Published timing tables match canonical evidence
+        run: python scripts/update_readme_benchmarks.py --check

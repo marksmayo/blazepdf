@@ -3,7 +3,8 @@
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)](https://github.com/marksmayo/blazepdf/issues)
 [![Star to support](https://img.shields.io/github/stars/marksmayo/blazepdf?style=flat&label=star%20to%20support)](https://github.com/marksmayo/blazepdf)
 [![MIT license](https://img.shields.io/github/license/marksmayo/blazepdf)](LICENSE)
-[![Verified checks passing](https://img.shields.io/badge/verified_checks-passing-brightgreen)](#verification)
+[![CI](https://github.com/marksmayo/blazepdf/actions/workflows/ci.yml/badge.svg)](https://github.com/marksmayo/blazepdf/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/marksmayo/blazepdf)](https://github.com/marksmayo/blazepdf/releases/latest)
 [![Rust tested 1.98.0](https://img.shields.io/badge/Rust-tested%201.98.0-orange?logo=rust)](#build-and-run)
 [![Python tested 3.13.2](https://img.shields.io/badge/Python-tested%203.13.2-blue?logo=python&logoColor=white)](#build-and-run)
 [![Benchmark gold 40/40](https://img.shields.io/badge/benchmark_gold-40%2F40-gold)](#medal--score-table)
@@ -19,6 +20,33 @@ separate cost tiers: opening a document need not pay for every capability at onc
 five workloads, with nine measured samples per BlazePDF card and one excluded warmup.
 This describes this corpus and machine—not every PDF, feature set, or computer.
 
+## Quick start
+
+After building the CLI below, inspect your PDF without extracting Markdown:
+
+```powershell
+.\target\release\blazepdf.exe --inspect document.pdf
+```
+
+Example output format (values depend on the document and machine):
+
+```text
+pages: 12
+kind: Text
+signed: true
+processed: 37 ms
+```
+
+This example is the exact output asserted by the CLI formatting test, not a new
+benchmark measurement. `signed` indicates a signature marker, not validation.
+
+[Benchmark methodology](docs/benchmark-methodology.md) ·
+[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) ·
+[Changelog](CHANGELOG.md) · [Release process](docs/releasing.md)
+
+The release badge links to published releases; until the first release exists,
+build from source. It does not imply downloadable binaries are already available.
+
 ## Capabilities
 
 - Classification and page count without building Markdown.
@@ -31,6 +59,31 @@ The signature marker is routing metadata, **not cryptographic signature validati
 BlazePDF is experimental, not a feature-equivalent replacement for commercial editors.
 Output-equality checks compare before/after BlazePDF builds; the benchmark does not
 establish identical rendering quality across different products.
+
+| Capability | BlazePDF status | Scope / limitation |
+| --- | --- | --- |
+| Classification and page count | Implemented | Separate low-cost inspection path |
+| First-page text | Implemented | Rotation information and bounded cache |
+| Markdown extraction | Implemented | Document-dependent fidelity; not editing |
+| Native first-page raster | Implemented | Requires separately supplied PDFium |
+| Desktop viewing | Experimental | Minimal viewport, not a full editor |
+| Signature detection | Marker only | No cryptographic verification |
+| OCR, editing, annotation | Not promised | Not established by these benchmarks |
+
+This is a capability comparison with full-featured PDF products, not an assertion
+that another named product lacks any feature.
+
+## Platform support
+
+| Platform | Status | Evidence |
+| --- | --- | --- |
+| Windows x64 / MSVC | Locally tested | Published tests and benchmark snapshot; Windows CI configured |
+| Linux | Unverified | No published build, test or benchmark evidence |
+| macOS | Unverified | No published build, test or benchmark evidence |
+
+CI covers the non-GUI CLI and selected tests, not PDFium rendering or desktop
+launch performance. Its acceptance command explicitly skips the native-render
+test, which requires PDFium. Toolchain badges record the local snapshot, not CI minimums.
 
 ## Build and run
 
@@ -65,6 +118,11 @@ Set `PDFIUM_LIB_PATH` to its library path if automatic discovery cannot find it.
 PDFium and other vendors' installers are not bundled.
 
 ## Benchmark methodology and limitations
+
+![Classification timings: BlazePDF versus fastest measured reference](docs/classification-timings.svg)
+
+The chart is a fixed snapshot of classification medians in milliseconds (lower is
+better), not a cross-workload average. See the tables for exact values and coverage.
 
 BlazePDF's latest measurements are from **2 October 2026** (NZDT). Competitor rows
 retain the **30 September 2026** reference. This is a mixed-date snapshot, not a fresh
@@ -261,14 +319,15 @@ See [NOTICE.md](NOTICE.md) for source provenance and attribution.
 
 ## Verification
 
-The **verified checks passing** badge records the local publication checks on
+The local publication checks passed on
 2 October 2026: three Rust CLI tests, 18 reader acceptance tests, both allocation
 regression gates, three Python documentation/fixture tests, workload-graph checks,
 and both canonical-report selection tests. The README timing tables also match the
 canonical JSON, and all eight commit-pinned upstream fixture hashes were verified.
 
-This is a verified snapshot, **not a live CI badge or a claim that every optional
-test in the repository has run**. Rust and Python badges show the tested toolchain
+That is a verified snapshot, **not a claim that every optional test in the
+repository has run**. The CI badge separately reports the workflow's actual status.
+Rust and Python badges show the tested toolchain
 versions, not minimum supported versions. The gold badge describes the published
 benchmark snapshot and its methodology above.
 
