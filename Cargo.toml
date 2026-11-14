@@ -20,6 +20,7 @@ pdf-inspector = { path = "crates/pdf-inspector", features = ["render-pdfium"] }
 eframe = { version = "0.31", default-features = false, optional = true }
 
 [dev-dependencies]
+divan = { version = "6.0.0", package = "codspeed-divan-compat" }
 
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.61", features = [
@@ -57,3 +58,7 @@ lto = "thin"
 # message.
 panic = "abort"
 strip = true
+
+[[bench]]
+name = "reader"
+harness = false

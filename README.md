@@ -4,6 +4,7 @@
 [![Star to support](https://img.shields.io/github/stars/marksmayo/blazepdf?style=flat&label=star%20to%20support)](https://github.com/marksmayo/blazepdf)
 [![MIT license](https://img.shields.io/github/license/marksmayo/blazepdf)](LICENSE)
 [![CI](https://github.com/marksmayo/blazepdf/actions/workflows/ci.yml/badge.svg)](https://github.com/marksmayo/blazepdf/actions/workflows/ci.yml)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/marksmayo/blazepdf?utm_source=badge)
 [![Latest release](https://img.shields.io/github/v/release/marksmayo/blazepdf)](https://github.com/marksmayo/blazepdf/releases/latest)
 [![Rust tested 1.98.0](https://img.shields.io/badge/Rust-tested%201.98.0-orange?logo=rust)](#build-and-run)
 [![Python tested 3.13.2](https://img.shields.io/badge/Python-tested%203.13.2-blue?logo=python&logoColor=white)](#build-and-run)

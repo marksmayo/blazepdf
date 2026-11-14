@@ -1,0 +1,37 @@
+name: CodSpeed
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Lets CodSpeed trigger backtest runs to build initial history.
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write # OpenID Connect authentication with CodSpeed
+jobs:
+  benchmarks:
+    name: Run benchmarks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Setup Rust toolchain, cache and cargo-codspeed
+        uses: moonrepo/setup-rust@abb2d32350334249b178c401e5ec5836e0cd88d3 # v1.3.0
+        with:
+          channel: stable
+          cache-target: release
+          bins: cargo-codspeed
+      - name: Download and verify pinned test corpus
+        run: python scripts/bootstrap_benchmark_corpus.py
+      - name: Build the benchmarks
+        run: cargo codspeed build -m simulation --locked --no-default-features
+      - name: Run the benchmarks
+        uses: CodSpeedHQ/action@af75f77f17a054769abefaa42fe8dc2975469b5f # v5.6.3
+        with:
+          mode: simulation
+          run: cargo codspeed run
