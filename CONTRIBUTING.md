@@ -26,6 +26,18 @@ The command explicitly excludes one PDFium-dependent test. With a compatible
 PDFium runtime installed and `PDFIUM_LIB_PATH` configured, run the full acceptance
 suite without `--skip` before changing rendering behavior.
 
+## CodSpeed benchmarks
+
+`benches/reader.rs` measures the `Reader` cost tiers (`inspect`, `first_page`,
+`open`) on the pinned corpus with CodSpeed. The CodSpeed workflow runs them on
+every push to `main` and every pull request. To run them locally, from the
+repository root after bootstrapping the corpus:
+
+```powershell
+cargo codspeed build -m simulation --no-default-features
+codspeed run -m simulation -- cargo codspeed run
+```
+
 ## Red / green / refactor
 
 1. Add a focused regression test and run it against unchanged production code.
